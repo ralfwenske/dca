@@ -22,8 +22,6 @@ const modalContent = document.getElementById('modalContent');
 const aboutBtn = document.getElementById('aboutBtn');
 const closeBtn = document.getElementById('closeModal');
 
-console.log('Modal elements:', { modal, aboutBtn, closeBtn });
-
 // Language content
 const translations = {
     en: {
@@ -86,7 +84,6 @@ let sliderCalcTimeout = null;
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded');
     
     // Initialize modal elements
     const modal = document.getElementById('aboutModal');
@@ -148,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Open modal with animation
     aboutBtn.onclick = function() {
-        console.log('About button clicked');
         modal.classList.remove('hidden');
         // Trigger reflow
         modal.offsetHeight;
@@ -220,25 +216,20 @@ function isFormReady() {
 // Fetch CSV on startup
 async function fetchCsvData() {
     try {
-        console.log('Starting CSV fetch...');
         const response = await fetch('BTC-USD.csv');
-        console.log('Response status:', response.status);
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const csvText = await response.text();
-        console.log('CSV text loaded, length:', csvText.length);
         
         csvPriceData = parseCsv(csvText);
-        console.log('CSV parsed, rows:', csvPriceData ? csvPriceData.length : 0);
         
         // Store first and last dates
         if (csvPriceData && csvPriceData.length > 0) {
             firstDate = csvPriceData[0].date;
             lastDate = csvPriceData[csvPriceData.length - 1].date;
-            console.log('Date range:', { firstDate, lastDate });
             
             // Set min date to earliest data point
             document.getElementById('startDate').min = firstDate;
