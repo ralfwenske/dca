@@ -379,9 +379,9 @@ function updateResults(results) {
         resultsHeading.textContent = `You would have ended up in ${endMonth} ${endYear} with:`;
     }
 
-    totalBtcElement.textContent = latest.totalBtc.toFixed(8);
-    currentValueElement.textContent = `$${formatNumberWithCommas(latest.currentValue.toFixed(2))}`;
-    totalInvestedElement.textContent = `$${formatNumberWithCommas(latest.totalInvested.toFixed(2))}`;
+    totalBtcElement.textContent = latest.totalBtc.toFixed(2);
+    currentValueElement.textContent = `$${formatNumberWithCommas(Math.round(latest.currentValue))}`;
+    totalInvestedElement.textContent = `$${formatNumberWithCommas(Math.round(latest.totalInvested))}`;
     roiElement.textContent = `${latest.roi.toFixed(2)}%`;
 }
 
@@ -429,7 +429,7 @@ function drawPerformanceChart(results, startDate, endDate) {
                     borderColor: 'orange',
                     borderWidth: 2,
                     tension: 0.1,
-                    hidden: true,
+                    hidden: false,
                     pointRadius: 0,
                     yAxisID: 'y'
                 }
@@ -498,16 +498,6 @@ function drawPerformanceChart(results, startDate, endDate) {
             }
         }
     });
-    // Add event listener for BTC price toggle
-    const btcSwitch = document.getElementById('toggleBtcPrice');
-    if (btcSwitch) {
-        btcSwitch.checked = false;
-        btcSwitch.onchange = function() {
-            const btcPriceDataset = performanceChart.data.datasets[3];
-            btcPriceDataset.hidden = !btcSwitch.checked;
-            performanceChart.update();
-        };
-    }
 }
 
 // --- noUiSlider Date Range Slider Integration ---

@@ -8,19 +8,21 @@ A web application to visualize the results of a Bitcoin dollar-cost averaging (D
 
 ## Features
 
-- **Flexible DCA Simulation:**
-  - Choose any start and end date within the available price data
+- **Interactive DCA Simulation:**
+  - Drag-and-drop date range slider for easy period selection
   - Set investment amount and interval (in weeks)
+  - Real-time calculation updates as you adjust inputs
 - **Historical Data:**
   - Uses daily close price data from Yahoo Finance (BTC-USD.csv)
   - No API keys or internet price fetches required
 - **Modern UI:**
-  - Sidebar layout for inputs and results
-  - Large, interactive performance chart (Chart.js)
-  - Responsive design for desktop and mobile
+  - Clean, responsive grid layout for inputs and results
+  - Large, interactive performance chart with BTC price overlay
+  - Automatic resizing for desktop and mobile views
 - **Results Display:**
   - Total invested, ROI, current value, and total BTC accumulated
-  - Clear summary of your chosen DCA scenario
+  - Dynamic summary showing investment period and frequency
+  - Results update automatically with any input change
 - **About Modal:**
   - Clickable "About DCA" popup with a plain-language explanation
   - Language support (English, German)
@@ -30,9 +32,10 @@ A web application to visualize the results of a Bitcoin dollar-cost averaging (D
 1. Download daily BTC-USD price data as a CSV from Yahoo Finance ([instructions here](https://finance.yahoo.com/quote/BTC-USD/history/?period1=1410912000&period2=1749952879)).
 2. Place the file as `BTC-USD.csv` in the app directory (same folder as `index.html`).
 3. Open `index.html` in a modern web browser using a local web server (e.g. `python3 -m http.server`).
-4. Set your desired start date, end date, investment amount, and interval.
-5. Click **Calculate** to see the results and interactive chart.
-6. Click **About DCA** for an explanation of the strategy.
+4. Use the slider or date inputs to select your investment period.
+5. Enter your desired investment amount and interval.
+6. Results and chart will update automatically as you make changes.
+7. Click **About DCA** for an explanation of the strategy.
 
 ## Data Source
 

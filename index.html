@@ -58,15 +58,13 @@
 
     <div class="container mx-auto px-2 py-6">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold">BTC-DCA Calculator</h1>
+            <h1 class="text-3xl font-bold">BTC-DCA Investment Performance</h1>
             <button id="aboutBtn" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                 About DCA
             </button>
         </div>
         <p id="summary" class="text-xl font-semibold text-center mb-6">-</p>
-
-        <!-- Controls: Slider + Inputs as a group -->
-        <div class="w-full mb-4 bg-white rounded-lg shadow-lg p-4 flex flex-col gap-4">
+        <div class="w-full mb-4 bg-white rounded-lg shadow-lg p-4 flex flex-col gap-4" id="inputContainer">
             <div class="w-full" id="dateRangeSliderContainer">
                 <div id="dateRangeSlider"></div>
             </div>
@@ -95,11 +93,11 @@
                 </div>
             </form>
         </div>
+        <h2 id="resultsHeading" class="text-xl font-semibold text-center mb-4"></h2>
 
         <!-- Results: now directly below controls, with responsive grid -->
         <div class="w-full mt-4">
             <div class="bg-white rounded-lg shadow-lg p-4">
-                <h2 id="resultsHeading" class="text-xl font-semibold text-center mb-6"></h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-center">
                     <div class="bg-gray-50 p-2 rounded-lg flex flex-col justify-center">
                         <h3 class="text-xs font-medium text-gray-500">Total Invested ($)</h3>
@@ -122,15 +120,8 @@
         </div>
 
         <!-- Chart Area -->
-        <div class="w-full flex flex-col">
+        <div class="w-full flex flex-col mt-5">
             <div class="bg-white rounded-lg shadow-lg p-4 flex-1 flex flex-col justify-center">
-                <div class="flex justify-end items-center mb-2">
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" id="toggleBtcPrice" class="form-checkbox h-4 w-4 text-blue-600">
-                        <span class="text-sm text-gray-700">Show BTC Price</span>
-                    </label>
-                </div>
-                <h2 class="text-xl font-semibold mb-4">BTC DCA Investment Performance</h2>
                 <div class="h-[500px] md:h-[600px] flex-1">
                     <canvas id="performanceChart"></canvas>
                 </div>
