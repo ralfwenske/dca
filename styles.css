@@ -1,0 +1,67 @@
+/* Custom styles to complement Tailwind CSS */
+
+/* Smooth transitions for interactive elements */
+input, button {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Custom scrollbar for better UX */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Ensure the chart container is responsive */
+#performanceChart {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Add some animation to the results cards */
+.bg-gray-50 {
+    transition: transform 0.2s ease-in-out;
+}
+
+.bg-gray-50:hover {
+    transform: translateY(-2px);
+}
+
+/* Custom focus styles for better accessibility */
+input:focus, button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+
+/* Loading state styles */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Error message styles */
+.error-message {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+/* Success message styles */
+.success-message {
+    color: #059669;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+} 
