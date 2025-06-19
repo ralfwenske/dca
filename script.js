@@ -255,19 +255,24 @@ async function fetchCsvData() {
 // Simple CSV parser for BTC-USD.csv
 function parseCsv(csvText) {
     const lines = csvText.split(/\r?\n/).filter(Boolean);
-    const header = lines[0].split(',');
-    const dateIdx = header.indexOf('Date');
-    const closeIdx = header.indexOf('Close');
-    if (dateIdx === -1 || closeIdx === -1) return [];
     const data = [];
-    for (let i = 1; i < lines.length; i++) {
+    
+    for (let i = 0; i < lines.length; i++) {
         const fields = lines[i].split(',');
-        if (fields.length < Math.max(dateIdx, closeIdx) + 1) continue;
-        data.push({
-            date: fields[dateIdx],
-            price: parseFloat(fields[closeIdx])
-        });
+        if (fields.length >= 2) {
+            const date = fields[0].trim();
+            const price = parseFloat(fields[1].trim());
+            
+            // Skip invalid data
+            if (isNaN(price) || !date) continue;
+            
+            data.push({
+                date: date,
+                price: price
+            });
+        }
     }
+    
     // Sort by date ascending
     data.sort((a, b) => a.date.localeCompare(b.date));
     return data;
@@ -412,7 +417,8 @@ function drawPerformanceChart(results, startDate, endDate) {
                     data: btcData,
                     borderColor: 'rgb(16, 185, 129)',
                     tension: 0.1,
-                    yAxisID: 'btc'
+                    yAxisID: 'btc',
+                    hidden: true
                 },
                 {
                     label: 'BTC Price ($)',
@@ -420,7 +426,7 @@ function drawPerformanceChart(results, startDate, endDate) {
                     borderColor: 'orange',
                     borderWidth: 2,
                     tension: 0.1,
-                    hidden: false,
+                    hidden: true,
                     pointRadius: 0,
                     yAxisID: 'y'
                 }
