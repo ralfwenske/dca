@@ -198,7 +198,27 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('endDate').addEventListener('input', triggerDebouncedCalculation);
     document.getElementById('investmentAmount').addEventListener('input', triggerDebouncedCalculation);
     document.getElementById('interval').addEventListener('input', triggerDebouncedCalculation);
-    fetchCsvData();
+    
+    // Initialize BTC price data from the included JavaScript file
+    csvPriceData = getBtcPriceArray();
+    csvLoading = false;
+    
+    // Store first and last dates
+    if (csvPriceData && csvPriceData.length > 0) {
+        firstDate = csvPriceData[0].date;
+        lastDate = csvPriceData[csvPriceData.length - 1].date;
+        
+        // Set min date to earliest data point
+        document.getElementById('startDate').min = firstDate;
+        document.getElementById('startDate').max = lastDate;
+        document.getElementById('endDate').min = firstDate;
+        document.getElementById('endDate').max = lastDate;
+        document.getElementById('endDate').value = lastDate;
+        // Initialize the date range slider
+        initDateRangeSlider(firstDate, lastDate, document.getElementById('startDate').value, document.getElementById('endDate').value);
+        // Trigger initial calculation
+        setTimeout(triggerDebouncedCalculation, 0);
+    }
 });
 
 // Helper to check if form is ready
@@ -211,71 +231,6 @@ function isFormReady() {
         csvPriceData &&
         !csvLoading
     );
-}
-
-// Fetch CSV on startup
-async function fetchCsvData() {
-    try {
-        const response = await fetch('BTC-USD.csv');
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const csvText = await response.text();
-        
-        csvPriceData = parseCsv(csvText);
-        
-        // Store first and last dates
-        if (csvPriceData && csvPriceData.length > 0) {
-            firstDate = csvPriceData[0].date;
-            lastDate = csvPriceData[csvPriceData.length - 1].date;
-            
-            // Set min date to earliest data point
-            document.getElementById('startDate').min = firstDate;
-            document.getElementById('startDate').max = lastDate;
-            document.getElementById('endDate').min = firstDate;
-            document.getElementById('endDate').max = lastDate;
-            document.getElementById('endDate').value = lastDate;
-            // Initialize the date range slider
-            initDateRangeSlider(firstDate, lastDate, document.getElementById('startDate').value, document.getElementById('endDate').value);
-            // Trigger initial calculation
-            setTimeout(triggerDebouncedCalculation, 0);
-        }
-
-        csvLoading = false;
-    } catch (e) {
-        console.error('Error in fetchCsvData:', e);
-        csvPriceData = null;
-        csvLoading = false;
-        alert('Could not load BTC-USD.csv. Please make sure the file is present in the app directory.');
-    }
-}
-
-// Simple CSV parser for BTC-USD.csv
-function parseCsv(csvText) {
-    const lines = csvText.split(/\r?\n/).filter(Boolean);
-    const data = [];
-    
-    for (let i = 0; i < lines.length; i++) {
-        const fields = lines[i].split(',');
-        if (fields.length >= 2) {
-            const date = fields[0].trim();
-            const price = parseFloat(fields[1].trim());
-            
-            // Skip invalid data
-            if (isNaN(price) || !date) continue;
-            
-            data.push({
-                date: date,
-                price: price
-            });
-        }
-    }
-    
-    // Sort by date ascending
-    data.sort((a, b) => a.date.localeCompare(b.date));
-    return data;
 }
 
 // Helper to format numbers with commas
@@ -445,7 +400,7 @@ function drawPerformanceChart(results, startDate, endDate) {
                         unit: 'month'
                     },
                     title: {
-                        display: true,
+                        display: false,
                         text: 'Date'
                     },
                     min: startDate,
