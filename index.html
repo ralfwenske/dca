@@ -64,12 +64,12 @@
             </button>
         </div>
         <p id="summary" class="text-xl font-semibold text-center mb-6">-</p>
-        <div class="w-full mb-4 bg-white rounded-lg shadow-lg p-4 flex flex-col gap-4" id="inputContainer">
+        <div class="w-full mb-4 bg-white rounded-lg shadow-lg p-4 flex flex-col gap-2" id="inputContainer">
             <div class="w-full" id="dateRangeSliderContainer">
                 <div id="dateRangeSlider"></div>
             </div>
             <form id="dcaForm" class="w-full">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
                     <div>
                         <label for="startDate" class="block text-xs font-medium text-gray-700">Start Date</label>
                         <input type="date" id="startDate" name="startDate" required
@@ -83,35 +83,35 @@
                     <div>
                         <label for="investmentAmount" class="block text-xs font-medium text-gray-700">Investment Amount ($)</label>
                         <input type="number" id="investmentAmount" name="investmentAmount" min="0" step="10" required
-                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm" value="100">
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-xs" value="100">
                     </div>
                     <div>
                         <label for="interval" class="block text-xs font-medium text-gray-700">Interval (weeks)</label>
                         <input type="number" id="interval" name="interval" min="1" step="1" required
-                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm" value="1">
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-xs" value="1">
                     </div>
                 </div>
             </form>
         </div>
-        <h2 id="resultsHeading" class="text-xl font-semibold text-center mb-4"></h2>
+        <h2 id="resultsHeading" class="text-xl font-semibold text-center mb-2"></h2>
 
         <!-- Results: now directly below controls, with responsive grid -->
-        <div class="w-full mt-4">
-            <div class="bg-white rounded-lg shadow-lg p-4">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-center">
-                    <div class="bg-gray-50 p-2 rounded-lg flex flex-col justify-center">
+        <div class="w-full mt-1">
+            <div class="bg-white rounded-lg shadow-lg p-2">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 justify-center">
+                    <div class="bg-gray-50 p-1 rounded-lg flex flex-col justify-center">
                         <h3 class="text-xs font-medium text-gray-500">Total Invested ($)</h3>
                         <p id="totalInvested" class="text-lg font-bold">-</p>
                     </div>
-                    <div class="bg-gray-50 p-2 rounded-lg flex flex-col justify-center">
+                    <div class="bg-gray-50 p-1 rounded-lg flex flex-col justify-center">
                         <h3 class="text-xs font-medium text-gray-500">Return on Investment</h3>
                         <p id="roi" class="text-lg font-bold">-</p>
                     </div>
-                    <div class="bg-gray-50 p-2 rounded-lg flex flex-col justify-center">
+                    <div class="bg-gray-50 p-1 rounded-lg flex flex-col justify-center">
                         <h3 class="text-xs font-medium text-gray-500">Current Value ($)</h3>
                         <p id="currentValue" class="text-lg font-bold">-</p>
                     </div>
-                    <div class="bg-gray-50 p-2 rounded-lg flex flex-col justify-center">
+                    <div class="bg-gray-50 p-1 rounded-lg flex flex-col justify-center">
                         <h3 class="text-xs font-medium text-gray-500">Total BTC Accumulated</h3>
                         <p id="totalBtc" class="text-lg font-bold">-</p>
                     </div>
