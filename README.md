@@ -2,7 +2,7 @@
 
 ![Screenshot of BTC-DCA Calculator](screenshot.png)
 
-*A sample simulation showing DCA results and performance chart for Bitcoin.*
+*A sample simulation showing DCA results and performance chart for Bitcoin, with multilingual support.*
 
 A web application to visualize the results of a Bitcoin dollar-cost averaging (DCA) investment strategy using real historical price data. The app allows you to simulate what would have happened if you had regularly invested a fixed amount in Bitcoin over any period in the past.
 
@@ -11,6 +11,8 @@ This project is designed for full transparency and ease of use. All historical p
 ## Features
 
 - **Run Anywhere:** Works "out-of-the-box" by opening `index.html` locally. No web server needed.
+- **Multilingual Support:** Instantly switch between 10 languages (English, German, Spanish, French, Italian, Portuguese, Dutch, Russian, Japanese, Chinese) using the language selector in the main interface.
+- **Consistent USD Display:** All results and charts use the $ (USD) currency symbol for clarity, regardless of selected language.
 - **Interactive DCA Simulation:**
   - Drag-and-drop date range slider for easy period selection.
   - Set investment amount and interval (in weeks).
@@ -24,7 +26,7 @@ This project is designed for full transparency and ease of use. All historical p
   - Total invested, ROI, current value, and total BTC accumulated.
   - Dynamic summary showing investment period and frequency.
 - **About Modal:**
-  - Clickable "About DCA" popup with a plain-language explanation (in English and German).
+  - Clickable "About DCA" popup with a plain-language explanation, fully translated in all supported languages.
 
 ## How It Works: Data Flow
 
@@ -34,7 +36,7 @@ The data pipeline is designed to be manual and transparent, giving you full cont
 
 First, you manually download the historical daily price data for Bitcoin from Investing.com.
 
-![Screenshot of data source on Investing.com](Screenshot%20Invest%20Com.png)
+![Screenshot of data source on Investing.com](BTC-Price/Screenshot%20Invest%20Com.png)
 
 - Go to the [Investing.com Bitcoin Historical Data page](https://www.investing.com/crypto/bitcoin/historical-data).
 - Select your desired date range.
@@ -57,6 +59,7 @@ This workflow ensures that you can verify the data source and run the applicatio
 3.  Use the slider or date inputs to select your investment period.
 4.  Enter your desired investment amount and interval.
 5.  The results and chart will update automatically.
+6.  Use the language selector at the top to instantly switch between 10 languages.
 
 ## Technologies Used
 
