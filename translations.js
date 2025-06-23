@@ -29,7 +29,7 @@ const translations = {
         dataNotLoaded: "BTC-USD.csv data is not loaded.",
         
         // Dynamic text
-        summaryText: "Had you bought ${amount} worth of BTC every ${interval} week${plural}<br>starting ${startMonth} ${startYear} for ~ ${months} month${monthsPlural}",
+        summaryText: "Had you bought ${amount} worth of BTC every ${interval} ${weekWord}<br>starting ${startMonth} ${startYear} for ~ ${months} ${monthWord}",
         resultsHeading: "You would have ended up in ${endMonth} ${endYear} with:",
         
         // Month names
@@ -61,7 +61,22 @@ const translations = {
         whyPast: "Why Look at the Past?",
         pastDesc: "While past performance doesn't guarantee future results, looking at historical data helps us understand how Bitcoin's value has changed over time and how regular investing might have worked out.",
         importantNote: "Important Note",
-        disclaimer: "This is an educational tool to understand the concept of DCA. It's not financial advice, and you should always do your own research before investing."
+        disclaimer: "This is an educational tool to understand the concept of DCA. It's not financial advice, and you should always do your own research before investing.",
+        chartLabels: {
+            portfolioValue: "Portfolio Value ($)",
+            totalInvested: "Total Invested ($)",
+            btcAccumulated: "BTC Accumulated",
+            btcPrice: "BTC Price ($)"
+        },
+        chartAxis: {
+            value: "Value ($)",
+            btc: "BTC",
+            date: "Date"
+        },
+        weekSingular: "week",
+        weekPlural: "weeks",
+        monthSingular: "month",
+        monthPlural: "months"
     },
     de: {
         pageTitle: "BTC DCA Rechner",
@@ -69,15 +84,15 @@ const translations = {
         aboutDCA: "Über DCA",
         startDate: "Startdatum",
         endDate: "Enddatum",
-        investmentAmount: "Anlagebetrag (€)",
+        investmentAmount: "Anlagebetrag ($)",
         interval: "Intervall (Wochen)",
-        totalInvested: "Gesamt investiert (€)",
+        totalInvested: "Gesamt investiert ($)",
         returnOnInvestment: "Kapitalrendite",
-        currentValue: "Aktueller Wert (€)",
+        currentValue: "Aktueller Wert ($)",
         totalBtcAccumulated: "Gesamte BTC angesammelt",
         calculationBasedOn: "Berechnung basierend auf täglichen Preisdaten von",
         dataNotLoaded: "BTC-USD.csv Daten sind nicht geladen.",
-        summaryText: "Hätten Sie ${amount} BTC alle ${interval} Woche${plural}<br>ab ${startMonth} ${startYear} für ~ ${months} Monat${monthsPlural} gekauft",
+        summaryText: "Hätten Sie ${amount} BTC alle ${interval} ${weekWord}<br>ab ${startMonth} ${startYear} für ~ ${months} ${monthWord} gekauft",
         resultsHeading: "Sie hätten in ${endMonth} ${endYear} geendet mit:",
         months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
         languageSelector: "Sprache",
@@ -103,7 +118,22 @@ const translations = {
         whyPast: "Warum in die Vergangenheit schauen?",
         pastDesc: "Während vergangene Ergebnisse keine Garantie für die Zukunft sind, hilft uns der Blick auf historische Daten zu verstehen, wie sich der Wert von Bitcoin im Laufe der Zeit verändert hat und wie regelmäßiges Investieren funktioniert haben könnte.",
         importantNote: "Wichtiger Hinweis",
-        disclaimer: "Dies ist ein Bildungsinstrument zum Verständnis des DCA-Konzepts. Es ist keine Finanzberatung, und Sie sollten immer eigene Recherchen durchführen, bevor Sie investieren."
+        disclaimer: "Dies ist ein Bildungsinstrument zum Verständnis des DCA-Konzepts. Es ist keine Finanzberatung, und Sie sollten immer eigene Recherchen durchführen, bevor Sie investieren.",
+        chartLabels: {
+            portfolioValue: "Portfoliowert ($)",
+            totalInvested: "Gesamt investiert ($)",
+            btcAccumulated: "Gesamte BTC",
+            btcPrice: "BTC Preis ($)"
+        },
+        chartAxis: {
+            value: "Wert ($)",
+            btc: "BTC",
+            date: "Datum"
+        },
+        weekSingular: "Woche",
+        weekPlural: "Wochen",
+        monthSingular: "Monat",
+        monthPlural: "Monate"
     },
     es: {
         pageTitle: "Calculadora BTC DCA",
@@ -119,7 +149,7 @@ const translations = {
         totalBtcAccumulated: "Total BTC Acumulado",
         calculationBasedOn: "Cálculo basado en datos de precios diarios de",
         dataNotLoaded: "Los datos BTC-USD.csv no están cargados.",
-        summaryText: "Si hubieras comprado ${amount} de BTC cada ${interval} semana${plural}<br>comenzando ${startMonth} ${startYear} por ~ ${months} mes${monthsPlural}",
+        summaryText: "Si hubieras comprado ${amount} de BTC cada ${interval} ${weekWord}<br>comenzando ${startMonth} ${startYear} por ~ ${months} ${monthWord}",
         resultsHeading: "Habrías terminado en ${endMonth} ${endYear} con:",
         months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
         languageSelector: "Idioma",
@@ -145,7 +175,22 @@ const translations = {
         whyPast: "¿Por qué mirar el pasado?",
         pastDesc: "Aunque el rendimiento pasado no garantiza resultados futuros, mirar los datos históricos nos ayuda a entender cómo el valor de Bitcoin ha cambiado con el tiempo y cómo la inversión regular podría haber funcionado.",
         importantNote: "Nota importante",
-        disclaimer: "Esta es una herramienta educativa para entender el concepto de DCA. No es asesoramiento financiero, y siempre debes hacer tu propia investigación antes de invertir."
+        disclaimer: "Esta es una herramienta educativa para entender el concepto de DCA. No es asesoramiento financiero, y siempre debes hacer tu propia investigación antes de invertir.",
+        chartLabels: {
+            portfolioValue: "Valor de la Cartera ($)",
+            totalInvested: "Total Invertido ($)",
+            btcAccumulated: "BTC Acumulado",
+            btcPrice: "Precio BTC ($)"
+        },
+        chartAxis: {
+            value: "Valor ($)",
+            btc: "BTC",
+            date: "Fecha"
+        },
+        weekSingular: "semana",
+        weekPlural: "semanas",
+        monthSingular: "mes",
+        monthPlural: "meses"
     },
     fr: {
         pageTitle: "Calculateur BTC DCA",
@@ -153,15 +198,15 @@ const translations = {
         aboutDCA: "À propos de DCA",
         startDate: "Date de Début",
         endDate: "Date de Fin",
-        investmentAmount: "Montant d'Investissement (€)",
+        investmentAmount: "Montant d'Investissement ($)",
         interval: "Intervalle (semaines)",
-        totalInvested: "Total Investi (€)",
+        totalInvested: "Total Investi ($)",
         returnOnInvestment: "Retour sur Investissement",
-        currentValue: "Valeur Actuelle (€)",
+        currentValue: "Valeur Actuelle ($)",
         totalBtcAccumulated: "Total BTC Accumulé",
         calculationBasedOn: "Calcul basé sur les données de prix quotidiennes de",
         dataNotLoaded: "Les données BTC-USD.csv ne sont pas chargées.",
-        summaryText: "Si vous aviez acheté ${amount} de BTC toutes les ${interval} semaine${plural}<br>en commençant ${startMonth} ${startYear} pendant ~ ${months} mois${monthsPlural}",
+        summaryText: "Si vous aviez acheté ${amount} de BTC toutes les ${interval} ${weekWord}<br>en commençant ${startMonth} ${startYear} pendant ~ ${months} ${monthWord}",
         resultsHeading: "Vous auriez fini en ${endMonth} ${endYear} avec:",
         months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
         languageSelector: "Langue",
@@ -187,7 +232,22 @@ const translations = {
         whyPast: "Pourquoi regarder le passé ?",
         pastDesc: "Bien que les performances passées ne garantissent pas les résultats futurs, examiner les données historiques nous aide à comprendre comment la valeur du Bitcoin a changé au fil du temps et comment l'investissement régulier aurait pu fonctionner.",
         importantNote: "Note importante",
-        disclaimer: "Ceci est un outil éducatif pour comprendre le concept de DCA. Ce n'est pas un conseil financier, et vous devriez toujours faire vos propres recherches avant d'investir."
+        disclaimer: "Ceci est un outil éducatif pour comprendre le concept de DCA. Ce n'est pas un conseil financier, et vous devriez toujours faire vos propres recherches avant d'investir.",
+        chartLabels: {
+            portfolioValue: "Valeur du Portefeuille ($)",
+            totalInvested: "Total Investi ($)",
+            btcAccumulated: "BTC Accumulé",
+            btcPrice: "Prix BTC ($)"
+        },
+        chartAxis: {
+            value: "Valeur ($)",
+            btc: "BTC",
+            date: "Date"
+        },
+        weekSingular: "semaine",
+        weekPlural: "semaines",
+        monthSingular: "mois",
+        monthPlural: "mois"
     },
     it: {
         pageTitle: "Calcolatrice BTC DCA",
@@ -195,15 +255,15 @@ const translations = {
         aboutDCA: "Sul DCA",
         startDate: "Data di Inizio",
         endDate: "Data di Fine",
-        investmentAmount: "Importo di Investimento (€)",
+        investmentAmount: "Importo di Investimento ($)",
         interval: "Intervallo (settimane)",
-        totalInvested: "Totale Investito (€)",
+        totalInvested: "Totale Investito ($)",
         returnOnInvestment: "Ritorno sull'Investimento",
-        currentValue: "Valore Attuale (€)",
+        currentValue: "Valore Attuale ($)",
         totalBtcAccumulated: "Totale BTC Accumulato",
         calculationBasedOn: "Calcolo basato sui dati dei prezzi giornalieri di",
         dataNotLoaded: "I dati BTC-USD.csv non sono caricati.",
-        summaryText: "Se avessi comprato ${amount} di BTC ogni ${interval} settimana${plural}<br>iniziando ${startMonth} ${startYear} per ~ ${months} mese${monthsPlural}",
+        summaryText: "Se avessi comprato ${amount} di BTC ogni ${interval} ${weekWord}<br>iniziando ${startMonth} ${startYear} per ~ ${months} ${monthWord}",
         resultsHeading: "Saresti finito in ${endMonth} ${endYear} con:",
         months: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
         languageSelector: "Lingua",
@@ -229,7 +289,22 @@ const translations = {
         whyPast: "Perché guardare al passato?",
         pastDesc: "Mentre le performance passate non garantiscono risultati futuri, guardare i dati storici ci aiuta a capire come il valore di Bitcoin è cambiato nel tempo e come l'investimento regolare avrebbe potuto funzionare.",
         importantNote: "Nota importante",
-        disclaimer: "Questo è uno strumento educativo per comprendere il concetto di DCA. Non è un consiglio finanziario, e dovresti sempre fare le tue ricerche prima di investire."
+        disclaimer: "Questo è uno strumento educativo per comprendere il concetto di DCA. Non è un consiglio finanziario, e dovresti sempre fare le tue ricerche prima di investire.",
+        chartLabels: {
+            portfolioValue: "Valore del Portafoglio ($)",
+            totalInvested: "Totale Investito ($)",
+            btcAccumulated: "BTC Accumulato",
+            btcPrice: "Prezzo BTC ($)"
+        },
+        chartAxis: {
+            value: "Valore ($)",
+            btc: "BTC",
+            date: "Data"
+        },
+        weekSingular: "settimana",
+        weekPlural: "settimane",
+        monthSingular: "mese",
+        monthPlural: "mesi"
     },
     pt: {
         pageTitle: "Calculadora BTC DCA",
@@ -237,15 +312,15 @@ const translations = {
         aboutDCA: "Sobre DCA",
         startDate: "Data de Início",
         endDate: "Data de Fim",
-        investmentAmount: "Valor do Investimento (R$)",
+        investmentAmount: "Valor do Investimento ($)",
         interval: "Intervalo (semanas)",
-        totalInvested: "Total Investido (R$)",
+        totalInvested: "Total Investido ($)",
         returnOnInvestment: "Retorno do Investimento",
-        currentValue: "Valor Atual (R$)",
+        currentValue: "Valor Atual ($)",
         totalBtcAccumulated: "Total BTC Acumulado",
         calculationBasedOn: "Cálculo baseado em dados de preços diários de",
         dataNotLoaded: "Os dados BTC-USD.csv não estão carregados.",
-        summaryText: "Se você tivesse comprado ${amount} de BTC a cada ${interval} semana${plural}<br>começando ${startMonth} ${startYear} por ~ ${months} mês${monthsPlural}",
+        summaryText: "Se você tivesse comprado ${amount} de BTC a cada ${interval} ${weekWord}<br>começando ${startMonth} ${startYear} por ~ ${months} ${monthWord}",
         resultsHeading: "Você teria terminado em ${endMonth} ${endYear} com:",
         months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
         languageSelector: "Idioma",
@@ -271,7 +346,22 @@ const translations = {
         whyPast: "Por que olhar o passado?",
         pastDesc: "Embora o desempenho passado não garanta resultados futuros, olhar os dados históricos nos ajuda a entender como o valor do Bitcoin mudou ao longo do tempo e como o investimento regular poderia ter funcionado.",
         importantNote: "Nota importante",
-        disclaimer: "Esta é uma ferramenta educacional para entender o conceito de DCA. Não é aconselhamento financeiro, e você deve sempre fazer sua própria pesquisa antes de investir."
+        disclaimer: "Esta é uma ferramenta educacional para entender o conceito de DCA. Não é aconselhamento financeiro, e você deve sempre fazer sua própria pesquisa antes de investir.",
+        chartLabels: {
+            portfolioValue: "Valor da Carteira (R$)",
+            totalInvested: "Total Investido (R$)",
+            btcAccumulated: "BTC Acumulado",
+            btcPrice: "Preço BTC (R$)"
+        },
+        chartAxis: {
+            value: "Valor (R$)",
+            btc: "BTC",
+            date: "Data"
+        },
+        weekSingular: "semana",
+        weekPlural: "semanas",
+        monthSingular: "mês",
+        monthPlural: "meses"
     },
     nl: {
         pageTitle: "BTC DCA Calculator",
@@ -279,15 +369,15 @@ const translations = {
         aboutDCA: "Over DCA",
         startDate: "Startdatum",
         endDate: "Einddatum",
-        investmentAmount: "Beleggingsbedrag (€)",
+        investmentAmount: "Beleggingsbedrag ($)",
         interval: "Interval (weken)",
-        totalInvested: "Totaal Geïnvesteerd (€)",
+        totalInvested: "Totaal Geïnvesteerd ($)",
         returnOnInvestment: "Rendement op Investering",
-        currentValue: "Huidige Waarde (€)",
+        currentValue: "Huidige Waarde ($)",
         totalBtcAccumulated: "Totaal BTC Geaccumuleerd",
         calculationBasedOn: "Berekening gebaseerd op dagelijkse prijsgegevens van",
         dataNotLoaded: "BTC-USD.csv gegevens zijn niet geladen.",
-        summaryText: "Als je ${amount} BTC elke ${interval} week${plural}<br>had gekocht vanaf ${startMonth} ${startYear} voor ~ ${months} maand${monthsPlural}",
+        summaryText: "Als je ${amount} BTC elke ${interval} ${weekWord}<br>had gekocht vanaf ${startMonth} ${startYear} voor ~ ${months} ${monthWord}",
         resultsHeading: "Je zou zijn geëindigd in ${endMonth} ${endYear} met:",
         months: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
         languageSelector: "Taal",
@@ -313,7 +403,22 @@ const translations = {
         whyPast: "Waarom naar het verleden kijken?",
         pastDesc: "Hoewel prestaties uit het verleden geen garantie zijn voor toekomstige resultaten, helpt het kijken naar historische gegevens ons te begrijpen hoe de waarde van Bitcoin in de loop van de tijd is veranderd en hoe regelmatig beleggen zou kunnen hebben gewerkt.",
         importantNote: "Belangrijke opmerking",
-        disclaimer: "Dit is een educatief hulpmiddel om het DCA-concept te begrijpen. Het is geen financieel advies, en je moet altijd je eigen onderzoek doen voordat je investeert."
+        disclaimer: "Dit is een educatief hulpmiddel om het DCA-concept te begrijpen. Het is geen financieel advies, en je moet altijd je eigen onderzoek doen voordat je investeert.",
+        chartLabels: {
+            portfolioValue: "Portefeuillewaarde ($)",
+            totalInvested: "Totaal Geïnvesteerd ($)",
+            btcAccumulated: "BTC Geaccumuleerd",
+            btcPrice: "BTC Prijs ($)"
+        },
+        chartAxis: {
+            value: "Waarde ($)",
+            btc: "BTC",
+            date: "Datum"
+        },
+        weekSingular: "week",
+        weekPlural: "weken",
+        monthSingular: "maand",
+        monthPlural: "maanden"
     },
     ru: {
         pageTitle: "Калькулятор BTC DCA",
@@ -329,7 +434,7 @@ const translations = {
         totalBtcAccumulated: "Всего накоплено BTC",
         calculationBasedOn: "Расчет основан на ежедневных данных о ценах с",
         dataNotLoaded: "Данные BTC-USD.csv не загружены.",
-        summaryText: "Если бы вы покупали ${amount} BTC каждые ${interval} недел${plural}<br>начиная с ${startMonth} ${startYear} в течение ~ ${months} месяц${monthsPlural}",
+        summaryText: "Если бы вы покупали ${amount} BTC каждые ${interval} ${weekWord}<br>начиная с ${startMonth} ${startYear} в течение ~ ${months} ${monthWord}",
         resultsHeading: "Вы бы закончили в ${endMonth} ${endYear} с:",
         months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
         languageSelector: "Язык",
@@ -355,7 +460,22 @@ const translations = {
         whyPast: "Зачем смотреть в прошлое?",
         pastDesc: "Хотя прошлые результаты не гарантируют будущих результатов, изучение исторических данных помогает нам понять, как стоимость Bitcoin изменилась с течением времени и как могли бы работать регулярные инвестиции.",
         importantNote: "Важное примечание",
-        disclaimer: "Это образовательный инструмент для понимания концепции DCA. Это не финансовый совет, и вы всегда должны проводить собственное исследование перед инвестированием."
+        disclaimer: "Это образовательный инструмент для понимания концепции DCA. Это не финансовый совет, и вы всегда должны проводить собственное исследование перед инвестированием.",
+        chartLabels: {
+            portfolioValue: "Стоимость портфеля ($)",
+            totalInvested: "Всего инвестировано ($)",
+            btcAccumulated: "Накоплено BTC",
+            btcPrice: "Цена BTC ($)"
+        },
+        chartAxis: {
+            value: "Стоимость ($)",
+            btc: "BTC",
+            date: "Дата"
+        },
+        weekSingular: "неделя",
+        weekPlural: "недели",
+        monthSingular: "месяц",
+        monthPlural: "месяцев"
     },
     ja: {
         pageTitle: "BTC DCA計算機",
@@ -371,7 +491,7 @@ const translations = {
         totalBtcAccumulated: "累積BTC総額",
         calculationBasedOn: "日次価格データに基づく計算（出典：",
         dataNotLoaded: "BTC-USD.csvデータが読み込まれていません。",
-        summaryText: "${startMonth} ${startYear}から約${months}ヶ月間、${interval}週間ごとに${amount}のBTCを購入していた場合",
+        summaryText: "${startMonth} ${startYear}から約${months}${monthWord}間、${interval}${weekWord}ごとに${amount}のBTCを購入していた場合",
         resultsHeading: "${endMonth} ${endYear}時点での結果：",
         months: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
         languageSelector: "言語",
@@ -397,7 +517,22 @@ const translations = {
         whyPast: "なぜ過去を見るのか？",
         pastDesc: "過去の実績が将来の結果を保証するものではありませんが、履歴データを見ることで、ビットコインの価値が時間とともにどのように変化したか、そして定期的な投資がどのように機能した可能性があるかを理解するのに役立ちます。",
         importantNote: "重要な注意事項",
-        disclaimer: "これはDCAの概念を理解するための教育ツールです。金融アドバイスではなく、投資前に必ず独自の調査を行う必要があります。"
+        disclaimer: "これはDCAの概念を理解するための教育ツールです。金融アドバイスではなく、投資前に必ず独自の調査を行う必要があります。",
+        chartLabels: {
+            portfolioValue: "ポートフォリオ価値 ($)",
+            totalInvested: "総投資額 ($)",
+            btcAccumulated: "累積BTC総額",
+            btcPrice: "BTC価格 ($)"
+        },
+        chartAxis: {
+            value: "価値 ($)",
+            btc: "BTC",
+            date: "日付"
+        },
+        weekSingular: "週",
+        weekPlural: "週",
+        monthSingular: "ヶ月",
+        monthPlural: "ヶ月"
     },
     zh: {
         pageTitle: "BTC DCA计算器",
@@ -413,7 +548,7 @@ const translations = {
         totalBtcAccumulated: "累计BTC总量",
         calculationBasedOn: "基于每日价格数据的计算，数据来源：",
         dataNotLoaded: "BTC-USD.csv数据未加载。",
-        summaryText: "如果您从${startMonth} ${startYear}开始，每${interval}周购买${amount}的BTC，持续约${months}个月",
+        summaryText: "如果您从${startMonth} ${startYear}开始，每${interval}${weekWord}购买${amount}的BTC，持续约${months}${monthWord}",
         resultsHeading: "您在${endMonth} ${endYear}的结果：",
         months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
         languageSelector: "语言",
@@ -439,7 +574,22 @@ const translations = {
         whyPast: "为什么要看过去？",
         pastDesc: "虽然过去的表现不能保证未来的结果，但查看历史数据有助于我们了解比特币的价值如何随时间变化，以及定期投资可能如何运作。",
         importantNote: "重要提示",
-        disclaimer: "这是一个理解DCA概念的教育工具。它不是财务建议，在投资前您应该始终进行自己的研究。"
+        disclaimer: "这是一个理解DCA概念的教育工具。它不是财务建议，在投资前您应该始终进行自己的研究。",
+        chartLabels: {
+            portfolioValue: "投资组合价值 ($)",
+            totalInvested: "总投资额 ($)",
+            btcAccumulated: "累计BTC总量",
+            btcPrice: "BTC价格 ($)"
+        },
+        chartAxis: {
+            value: "价值 ($)",
+            btc: "BTC",
+            date: "日期"
+        },
+        weekSingular: "周",
+        weekPlural: "周",
+        monthSingular: "个月",
+        monthPlural: "个月"
     }
 };
 
