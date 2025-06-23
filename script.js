@@ -1,7 +1,3 @@
-// Constants
-const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3';
-const STORAGE_KEY = 'btc_price_history';
-
 // Chart instance
 let performanceChart = null;
 
@@ -33,6 +29,9 @@ let lastDate = null;
 let isProgrammaticUpdate = false;
 let sliderCalcTimeout = null;
 
+// Store latest results globally for language switching
+window.latestResults = null;
+
 // Function to update all UI text based on current language
 function updateUIText() {
     // Update page title
@@ -55,6 +54,11 @@ function updateUIText() {
     
     // Update modal content
     updateModalContent();
+    
+    // Re-render results in new language if available
+    if (window.latestResults) {
+        updateResults(window.latestResults);
+    }
 }
 
 // Function to update modal content based on language
@@ -104,6 +108,11 @@ document.addEventListener('DOMContentLoaded', function() {
     languageSelector.addEventListener('change', (e) => {
         currentLanguage = e.target.value;
         updateUIText();
+        if (window.latestResults) {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            drawPerformanceChart(window.latestResults, startDate, endDate);
+        }
     });
 
     if (!modal || !modalContent || !aboutBtn || !closeBtn) {
@@ -276,6 +285,9 @@ function calculateDCA(priceData, startDate, endDate, investmentAmount, interval)
 function updateResults(results) {
     if (results.length === 0) return;
     
+    // Store latest results for language switching
+    window.latestResults = results;
+    
     const latest = results[results.length - 1];
     const startDate = new Date(document.getElementById('startDate').value);
     const endDate = new Date(document.getElementById('endDate').value);
@@ -291,15 +303,23 @@ function updateResults(results) {
     const startYear = startDate.getFullYear();
     const endYear = endDate.getFullYear();
     
+    // Get correct pluralization for week and month
+    const weekWord = interval > 1
+        ? getTranslation('weekPlural', currentLanguage)
+        : getTranslation('weekSingular', currentLanguage);
+    const monthWord = months > 1
+        ? getTranslation('monthPlural', currentLanguage)
+        : getTranslation('monthSingular', currentLanguage);
+    
     // Create summary text with translations
     const summaryText = getTranslation('summaryText', currentLanguage, {
         amount: `$${formatNumberWithCommas(investmentAmount)}`,
         interval: interval,
-        plural: interval > 1 ? 's' : '',
+        weekWord: weekWord,
         startMonth: startMonth,
         startYear: startYear,
         months: months,
-        monthsPlural: months > 1 ? 's' : ''
+        monthWord: monthWord
     });
     
     document.getElementById('summary').innerHTML = summaryText;
@@ -311,7 +331,7 @@ function updateResults(results) {
         endYear: endYear
     });
     
-    // Update result values
+    // Update result values (always use $ for currency)
     totalBtcElement.textContent = latest.totalBtc.toFixed(2);
     currentValueElement.textContent = `$${formatNumberWithCommas(Math.round(latest.currentValue))}`;
     totalInvestedElement.textContent = `$${formatNumberWithCommas(Math.round(latest.totalInvested))}`;
@@ -331,26 +351,29 @@ function drawPerformanceChart(results, startDate, endDate) {
     const investedData = filteredResults.map(r => r.totalInvested);
     const btcData = filteredResults.map(r => r.totalBtc);
     const btcPriceData = filteredResults.map(r => r.price);
+    const chartLabels = getTranslation('chartLabels', currentLanguage);
+    const chartAxis = getTranslation('chartAxis', currentLanguage);
+    const monthsArr = getTranslation('months', currentLanguage);
     performanceChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels,
             datasets: [
                 {
-                    label: 'Portfolio Value ($)',
+                    label: chartLabels.portfolioValue,
                     data: currentValueData,
                     borderColor: 'rgb(59, 130, 246)',
                     tension: 0.1
                 },
                 {
-                    label: 'Total Invested ($)',
+                    label: chartLabels.totalInvested,
                     data: investedData,
                     borderColor: 'rgb(156, 163, 175)',
                     borderDash: [5, 5],
                     tension: 0.1
                 },
                 {
-                    label: 'BTC Accumulated',
+                    label: chartLabels.btcAccumulated,
                     data: btcData,
                     borderColor: 'rgb(16, 185, 129)',
                     tension: 0.1,
@@ -358,7 +381,7 @@ function drawPerformanceChart(results, startDate, endDate) {
                     hidden: true
                 },
                 {
-                    label: 'BTC Price ($)',
+                    label: chartLabels.btcPrice,
                     data: btcPriceData,
                     borderColor: 'orange',
                     borderWidth: 2,
@@ -382,11 +405,20 @@ function drawPerformanceChart(results, startDate, endDate) {
                         unit: 'month'
                     },
                     title: {
-                        display: false,
-                        text: 'Date'
+                        display: true,
+                        text: chartAxis.date
                     },
                     min: startDate,
-                    max: endDate
+                    max: endDate,
+                    ticks: {
+                        callback: function(value, index, ticks) {
+                            // value is a timestamp or ISO string
+                            const date = new Date(value);
+                            const monthIdx = date.getMonth();
+                            // Use first 3 chars of the translated month name + year
+                            return monthsArr[monthIdx].slice(0, 3) + ' ' + date.getFullYear();
+                        }
+                    }
                 },
                 y: {
                     type: 'linear',
@@ -394,7 +426,7 @@ function drawPerformanceChart(results, startDate, endDate) {
                     position: 'left',
                     title: {
                         display: true,
-                        text: 'Value ($)'
+                        text: chartAxis.value
                     }
                 },
                 btc: {
@@ -403,7 +435,7 @@ function drawPerformanceChart(results, startDate, endDate) {
                     position: 'right',
                     title: {
                         display: true,
-                        text: 'BTC'
+                        text: chartAxis.btc
                     },
                     grid: {
                         drawOnChartArea: false
@@ -413,6 +445,11 @@ function drawPerformanceChart(results, startDate, endDate) {
             plugins: {
                 tooltip: {
                     callbacks: {
+                        title: function(context) {
+                            // Localize the tooltip date
+                            const date = new Date(context[0].label);
+                            return date.toLocaleDateString(currentLanguage);
+                        },
                         label: function(context) {
                             let label = context.dataset.label || '';
                             if (label) {
