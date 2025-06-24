@@ -8,6 +8,42 @@ A web application to visualize the results of a Bitcoin dollar-cost averaging (D
 
 This project is designed for full transparency and ease of use. All historical price data is embedded directly within a JavaScript file, allowing you to run the calculator by simply opening `index.html` in your browser. No web server or internet connection is required to perform calculations.
 
+## Getting Started
+
+### Prerequisites
+- **Node.js** (only required for data conversion, not for running the app)
+- A modern web browser
+
+### Initial Setup
+
+1. **Download Historical Data:**
+   - Go to [Investing.com Bitcoin Historical Data](https://www.investing.com/crypto/bitcoin/historical-data)
+   - Select a date range starting from **11/11/2011** (earliest available data)
+   - Click "Download" to get the CSV file
+   - Save it as `Bitcoin Historical Data.csv` in the `BTC-Price/` folder
+
+2. **Convert Data to JavaScript:**
+   ```bash
+   cd BTC-Price
+   node convertToJs.js
+   ```
+   This creates `btc-price-data.js` in the main directory with a backup of any existing file.
+
+3. **Run the Application:**
+   - Open `index.html` in any web browser
+   - No server required - it works completely offline!
+
+### Updating Price Data
+
+To keep your price data current:
+
+1. **Check your latest date:** Look at the most recent date in your existing `Bitcoin Historical Data.csv` file
+2. **Download new data:** Go to Investing.com and download data starting from **one day after** your latest date
+3. **Merge the files:** Copy the new data rows from the downloaded file and paste them into your existing `Bitcoin Historical Data.csv` file
+4. **Convert again:** Run `node convertToJs.js` to update the JavaScript file
+
+This approach ensures you maintain a complete historical dataset while adding only the new data.
+
 ## Features
 
 - **Run Anywhere:** Works "out-of-the-box" by opening `index.html` locally. No web server needed.
@@ -44,10 +80,10 @@ First, you manually download the historical daily price data for Bitcoin from In
 
 **2. Convert the CSV to a JavaScript File**
 
-The downloaded CSV needs to be converted into a JavaScript array. This is done using the provided Red script.
+The downloaded CSV needs to be converted into a JavaScript array. This is done using the provided Node.js script.
 
 - Place the downloaded CSV file in the `BTC-Price/` directory.
-- Run the `Convertcsv.red` script (from `redlang.org`) to process the CSV.
+- Run the `convertToJs.js` script with Node.js to process the CSV.
 - The script will automatically generate the `btc-price-data.js` file, which contains the entire price history as a JavaScript object.
 
 This workflow ensures that you can verify the data source and run the application in a completely self-contained environment.
@@ -66,7 +102,7 @@ This workflow ensures that you can verify the data source and run the applicatio
 - HTML5, CSS3 (Tailwind CSS)
 - JavaScript (ES6+)
 - Chart.js (for data visualization)
-- Red (for the data conversion script)
+- Node.js (for data conversion script)
 
 ## License
 
