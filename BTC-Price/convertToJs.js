@@ -1,3 +1,9 @@
+/*
+  BTC DCA Calculator - CSV to JavaScript Converter
+  Copyright (c) 2024 Ralf Wenske
+  MIT License - see LICENSE file for details
+*/
+
 const fs = require('fs');
 const path = require('path');
 

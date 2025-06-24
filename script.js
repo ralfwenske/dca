@@ -1,3 +1,9 @@
+/*
+  BTC DCA Calculator - Main Application Logic
+  Copyright (c) 2024 Ralf Wenske
+  MIT License - see LICENSE file for details
+*/
+
 // Chart instance
 let performanceChart = null;
 

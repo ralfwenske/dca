@@ -1,3 +1,9 @@
+/*
+  BTC DCA Calculator - Multilingual Translations
+  Copyright (c) 2024 Ralf Wenske
+  MIT License - see LICENSE file for details
+*/
+
 // Comprehensive translations for BTC DCA Calculator
 const translations = {
     en: {
