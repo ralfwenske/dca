@@ -452,9 +452,40 @@ function drawPerformanceChart(results, startDate, endDate) {
                 tooltip: {
                     callbacks: {
                         title: function(context) {
-                            // Localize the tooltip date
-                            const date = new Date(context[0].label);
-                            return date.toLocaleDateString(currentLanguage);
+                            try {
+                                // Handle different possible label formats
+                                let date;
+                                const label = context[0].label;
+                                
+                                if (typeof label === 'string') {
+                                    // If it's already a date string, try to parse it
+                                    if (label.includes('-')) {
+                                        // YYYY-MM-DD format
+                                        date = new Date(label + 'T00:00:00');
+                                    } else {
+                                        // Try direct parsing
+                                        date = new Date(label);
+                                    }
+                                } else {
+                                    // If it's a timestamp or number
+                                    date = new Date(label);
+                                }
+                                
+                                // Check if date is valid
+                                if (isNaN(date.getTime())) {
+                                    return label; // Return original label if date parsing fails
+                                }
+                                
+                                const options = {
+                                    year: 'numeric',
+                                    month: 'short',
+                                    day: 'numeric'
+                                };
+                                return date.toLocaleDateString(currentLanguage, options);
+                            } catch (e) {
+                                // Fallback to a simple format
+                                return context[0].label || 'Invalid Date';
+                            }
                         },
                         label: function(context) {
                             let label = context.dataset.label || '';
