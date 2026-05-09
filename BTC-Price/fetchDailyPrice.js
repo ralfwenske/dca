@@ -1,6 +1,6 @@
 /*
   BTC DCA Calculator - Automated Daily Price Fetcher
-  Fetches latest BTC price from CoinGecko and updates btc-price-data.js
+  Fetches missing BTC price data from CoinGecko and updates btc-price-data.js
   Copyright (c) 2024 Ralf Wenske
   MIT License - see LICENSE file for details
 */
@@ -13,17 +13,21 @@ const https = require('https');
 const CONFIG = {
   dataFile: path.join(__dirname, '..', 'btc-price-data.js'),
   backupFile: path.join(__dirname, '..', 'btc-price-data.js.backup'),
-  apiUrl: 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_last_updated_at=true',
+  apiUrl: 'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range',
   userAgent: 'BTC-DCA-Calculator/1.0 (automationscript)'
 };
 
-// Fetch BTC price from CoinGecko API
-function fetchBtcPrice() {
+// Fetch BTC price data for a date range from CoinGecko API
+function fetchBtcPriceRange(fromTimestamp, toTimestamp) {
   return new Promise((resolve, reject) => {
     const url = new URL(CONFIG.apiUrl);
+    url.searchParams.set('vs_currency', 'usd');
+    url.searchParams.set('from', fromTimestamp);
+    url.searchParams.set('to', toTimestamp);
+
     const options = {
       headers: { 'User-Agent': CONFIG.userAgent },
-      timeout: 10000
+      timeout: 15000
     };
 
     const req = https.request(url, options, (res) => {
@@ -36,15 +40,19 @@ function fetchBtcPrice() {
         }
         try {
           const json = JSON.parse(data);
-          const bitcoin = json.bitcoin;
-          if (!bitcoin || !bitcoin.usd) {
+          if (!json.prices || !Array.isArray(json.prices)) {
             reject(new Error('Invalid API response format'));
             return;
           }
-          resolve({
-            price: Math.round(bitcoin.usd * 10) / 10,
-            date: new Date(bitcoin.last_updated_at * 1000).toISOString().split('T')[0]
+          
+          // Convert timestamps to dates and prices
+          const priceData = {};
+          json.prices.forEach(([timestamp, price]) => {
+            const date = new Date(timestamp).toISOString().split('T')[0];
+            priceData[date] = Math.round(price * 10) / 10;
           });
+          
+          resolve(priceData);
         } catch (e) {
           reject(new Error('Failed to parse API response: ' + e.message));
         }
@@ -59,6 +67,7 @@ function fetchBtcPrice() {
 
 // Create backup of existing file
 function createBackup() {
+  if (fs.existsSync(CONFIG.dataFile)) {
     fs.copyFileSync(CONFIG.dataFile, CONFIG.backupFile);
     console.log('✓ Backup created: btc-price-data.js.backup');
   }
@@ -157,34 +166,67 @@ function writeDataFile(fileInfo) {
 
 // Main update function
 async function updatePriceData() {
-  console.log('Fetching latest BTC price...');
+  console.log('Checking for missing BTC price data...');
 
   try {
-    const { price, date } = await fetchBtcPrice();
-    console.log(`✓ Fetched price for ${date}: $${price.toLocaleString()}`);
-
     const fileInfo = readExistingData();
-
-    if (fileInfo.data[date]) {
-      const oldPrice = fileInfo.data[date];
-      if (Math.abs(oldPrice - price) < 0.1) {
-        console.log(`✓ Price for ${date} is already up to date ($${oldPrice})`);
-      } else {
-        console.log(`⚠ Price changed from $${oldPrice} to $${price}`);
-        fileInfo.data[date] = price;
-        createBackup();
-        writeDataFile(fileInfo);
-      }
-    } else {
-      console.log(`✓ Adding new price entry for ${date}`);
-      createBackup();
-      fileInfo.data[date] = price;
-      writeDataFile(fileInfo);
+    const existingDates = Object.keys(fileInfo.data);
+    
+    if (existingDates.length === 0) {
+      console.error('Error: No existing price data found');
+      process.exit(1);
     }
 
-    const dates = Object.keys(fileInfo.data).sort();
-    console.log(`✓ Total price data points: ${dates.length}`);
-    console.log(`✓ Date range: ${dates[0]} to ${dates[dates.length - 1]}`);
+    // Find the latest date in existing data
+    const latestDate = existingDates.sort().pop();
+    console.log(`✓ Latest date in data: ${latestDate}`);
+
+    // Calculate date range for missing data
+    const latest = new Date(latestDate);
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    
+    // Set times to midnight UTC for accurate day calculation (avoid timezone issues)
+    const latestStart = Date.UTC(latest.getFullYear(), latest.getMonth(), latest.getDate());
+    const yesterdayStart = Date.UTC(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate());
+    const tomorrowStart = Date.UTC(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate() + 1);
+
+    // We want to fetch data for dates: (latestDate, yesterday] 
+    // Which translates to timestamps: [latestStart + 1 day, yesterdayStart + 1 day)
+    const fromTimestamp = (latestStart + (24 * 60 * 60 * 1000)) / 1000; // Start of next day after latest
+    const toTimestamp = tomorrowStart / 1000; // Start of day after yesterday (exclusive)
+    
+    // Calculate number of days to fetch
+    const timeDiff = toTimestamp * 1000 - fromTimestamp * 1000;
+    const daysDiff = timeDiff / (1000 * 60 * 60 * 24);
+
+    if (daysDiff <= 0) {
+        console.log('✓ No missing data - you are up to date!');
+        return;
+    }
+
+    console.log(`✓ Found ${daysDiff} missing day(s) from ${new Date(fromTimestamp * 1000).toISOString().split('T')[0]} to ${new Date((toTimestamp * 1000) - (24 * 60 * 60 * 1000)).toISOString().split('T')[0]}`);
+    console.log(`✓ Fetching price data for ${daysDiff} day(s)...`);
+
+    // Fetch the missing price data
+    const newData = await fetchBtcPriceRange(fromTimestamp, toTimestamp);
+    
+    // Merge new data with existing data
+    Object.keys(newData).forEach(date => {
+      if (!fileInfo.data[date]) {
+        fileInfo.data[date] = newData[date];
+        console.log(`✓ Added price for ${date}: $${newData[date].toLocaleString()}`);
+      }
+    });
+
+    // Create backup and write updated data
+    createBackup();
+    writeDataFile(fileInfo);
+
+    const allDates = Object.keys(fileInfo.data).sort();
+    console.log(`✓ Total price data points: ${allDates.length}`);
+    console.log(`✓ Date range: ${allDates[0]} to ${allDates[allDates.length - 1]}`);
 
   } catch (error) {
     console.error('Error updating price data:', error.message);

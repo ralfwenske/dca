@@ -38,7 +38,7 @@ This project is designed for full transparency and ease of use. All historical p
 
 #### Option A: Automated Daily Updates (Recommended)
 
-Set up a scheduled task to fetch the latest BTC price automatically every day:
+Set up a scheduled task to fetch missing BTC price data automatically every day:
 
 **Using npm (easiest):**
 ```bash
@@ -46,10 +46,11 @@ npm run fetch-price
 ```
 
 This script:
-- Fetches the latest BTC price from CoinGecko's free API
+- Checks for missing BTC price data from the last available date to yesterday
+- Fetches all missing days in one request from CoinGecko's free API
 - Automatically backs up `btc-price-data.js` before updating
-- Appends today's price or updates it if changed
 - Preserves all historical data and helper functions
+- Ensures data consistency by using UTC timestamps (avoids timezone issues)
 
 **Set up a daily cron job (Linux/macOS):**
 ```bash
@@ -102,27 +103,24 @@ This approach ensures you maintain a complete historical dataset while adding on
 
 ## How It Works: Data Flow
 
-The data pipeline is designed to be manual and transparent, giving you full control over the data used in the calculations.
+The data pipeline is designed to be transparent, giving you visibility into how price data is maintained.
 
-**1. Download Historical Data from Investing.com**
+**1. Historical Data Import (Initial Setup)**
 
-First, you manually download the historical daily price data for Bitcoin from Investing.com.
+First, you manually download the historical daily price data for Bitcoin from Investing.com and convert it to JavaScript format using the provided script.
 
-![Screenshot of data source on Investing.com](BTC-Price/Screenshot%20Invest%20Com.png)
+**2. Automated Daily Updates (Ongoing Maintenance)**
 
-- Go to the [Investing.com Bitcoin Historical Data page](https://www.investing.com/crypto/bitcoin/historical-data).
-- Select your desired date range.
-- Click the "Download" button to get the CSV file.
+After initial setup, price data is kept current through automated daily updates:
 
-**2. Convert the CSV to a JavaScript File**
+- A scheduled task (cron job) runs `npm run fetch-price` daily
+- The script checks for missing BTC price data from the last available date to yesterday
+- Fetches all missing days in one request from CoinGecko's free API
+- Automatically backs up `btc-price-data.js` before updating
+- Preserves all historical data and helper functions
+- Ensures data consistency by using UTC timestamps (avoids timezone issues)
 
-The downloaded CSV needs to be converted into a JavaScript array. This is done using the provided Node.js script.
-
-- Place the downloaded CSV file in the `BTC-Price/` directory.
-- Run the `convertToJs.js` script with Node.js to process the CSV.
-- The script will automatically generate the `btc-price-data.js` file, which contains the entire price history as a JavaScript object.
-
-This workflow ensures that you can verify the data source and run the application in a completely self-contained environment.
+This two-step approach gives you full control over the initial historical data import while providing a maintenance-free way to keep the data current going forward.
 
 ## How to Use
 
