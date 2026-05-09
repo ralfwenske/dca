@@ -11,10 +11,13 @@ This project is designed for full transparency and ease of use. All historical p
 ## Getting Started
 
 ### Prerequisites
-- **Node.js** (only required for data conversion, not for running the app)
+
+- **Node.js** (required for data conversion and automated updates; not needed to run the app)
 - A modern web browser
 
-### Initial Setup
+## Getting Started
+
+### Initial Setup (One-time)
 
 1. **Download Historical Data:**
    - Go to [Investing.com Bitcoin Historical Data](https://www.investing.com/crypto/bitcoin/historical-data)
@@ -24,23 +27,56 @@ This project is designed for full transparency and ease of use. All historical p
 
 2. **Convert Data to JavaScript:**
    ```bash
-   cd BTC-Price
-   node convertToJs.js
+   node BTC-Price/convertToJs.js
    ```
    This creates `btc-price-data.js` in the main directory with a backup of any existing file.
 
 3. **Run the Application:**
-   - Open `index.html` in any web browser
-   - No server required - it works completely offline!
+   Open `index.html` in any web browser — no server required, works completely offline!
 
 ### Updating Price Data
 
-To keep your price data current:
+#### Option A: Automated Daily Updates (Recommended)
+
+Set up a scheduled task to fetch the latest BTC price automatically every day:
+
+**Using npm (easiest):**
+```bash
+npm run fetch-price
+```
+
+This script:
+- Fetches the latest BTC price from CoinGecko's free API
+- Automatically backs up `btc-price-data.js` before updating
+- Appends today's price or updates it if changed
+- Preserves all historical data and helper functions
+
+**Set up a daily cron job (Linux/macOS):**
+```bash
+crontab -e
+```
+Add this line to run daily at 6:00 PM:
+```
+0 18 * * * cd /path/to/your/dca-project && npm run fetch-price >> /var/log/btc-price-update.log 2>&1
+```
+
+**Windows Task Scheduler:**
+1. Open Task Scheduler
+2. Create Basic Task
+3. Trigger: Daily at 6:00 PM
+4. Action: Start a program
+5. Program: `cmd.exe`
+6. Arguments: `/c "cd /path/to/your/dca-project && npm run fetch-price"`
+7. Save and enable the task
+
+#### Option B: Manual CSV Updates
+
+To manually update using CSV files (legacy method):
 
 1. **Check your latest date:** Look at the most recent date in your existing `Bitcoin Historical Data.csv` file
 2. **Download new data:** Go to Investing.com and download data starting from **one day after** your latest date
 3. **Merge the files:** Copy the new data rows from the downloaded file and paste them into your existing `Bitcoin Historical Data.csv` file
-4. **Convert again:** Run `node convertToJs.js` to update the JavaScript file
+4. **Convert again:** Run `node BTC-Price/convertToJs.js` to update the JavaScript file
 
 This approach ensures you maintain a complete historical dataset while adding only the new data.
 

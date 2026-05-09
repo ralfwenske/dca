@@ -1,0 +1,17 @@
+{
+  "name": "btc-dca-calculator",
+  "version": "1.0.0",
+  "description": "Bitcoin Dollar-Cost Averaging Calculator with automated price data updates",
+  "main": "script.js",
+  "scripts": {
+    "fetch-price": "node BTC-Price/fetchDailyPrice.js",
+    "convert-csv": "node BTC-Price/convertToJs.js"
+  },
+  "keywords": ["bitcoin", "btc", "dca", "dollar-cost-averaging", "cryptocurrency", "investment"],
+  "author": "Ralf Wenske",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}
